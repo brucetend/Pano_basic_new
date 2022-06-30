@@ -1,4 +1,4 @@
-function [sphereImg, validMap] = im2Sphere(im, imHoriFOV, sphereW, sphereH, x, y)
+function [sphereImg, validMap] = im2Sphere(im, imHoriFOV, sphereW, sphereH, x, y, method)
 %IM2SPHERE Project perspective images to panorama image
 % Work for x in [-pi,+pi], y in [-pi/2,+pi/2], and proper FOV
 % For other (x,y,fov), it should also work, but depends on trigonometric 
@@ -59,9 +59,11 @@ Px = reshape(deltaX, [sphereH sphereW]) + (imW+1)/2;
 Py = reshape(deltaY, [sphereH sphereW]) + (imH+1)/2;
 
 % warp image
-sphereImg = warpImageFast(im, Px, Py);
+sphereImg = warpImageFast(im, Px, Py, method);
 validMap = ~isnan(sphereImg(:,:,1));
-
+if (method=='nearest')
+    validMap(sphereImg(:,:,1)==0) = false;
+end
 % view direction: [alpha belta gamma]
 % contacting point direction: [x0 y0 z0]
 % so division>0 are valid region
