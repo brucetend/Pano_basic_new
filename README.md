@@ -1,5 +1,7 @@
 # Toolbox for panorama image processing
 
+use stitching_matterport3D.m to create pano, and change size in stitch.m to change the size of pano images!
+
 This toolbox provides useful functions to process panorama images. Please see **Quick start** below for details.
 
 If using this code as parts of your project, please cite:
